@@ -560,3 +560,4 @@ Main
 #$obfuscatedScript = Custom-Obfuscate -script $scriptContent
 #$obfuscatedScript | Out-File -FilePath "c:\Users\kyle1\Desktop\ObfuscatedHavoc.txt"
 # TEST TEST TEST 
+# LOL
