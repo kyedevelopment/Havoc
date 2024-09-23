@@ -274,26 +274,54 @@ function Check-Sandboxing {
     }
 }
 
-function Analyze-USBDevices {
-    Write-Host " [-] Analyzing USB device history and potential DMA devices..." -ForegroundColor Red
-    $usbDevices = Get-WmiObject -Query "SELECT * FROM Win32_USBControllerDevice"
-    $suspiciousDevices = $usbDevices | Where-Object { 
-        $_.Dependent -match "USB\\VID_045E&PID_028E" -or  # Xbox 360 Controller
-        $_.Dependent -match "USB\\VID_0955&PID_7210" -or  # Nvidia Shield Controller
-        $_.Dependent -match "USB\\VID_1532" -or           # Razer devices
-        $_.Dependent -match "USB\\VID_046D"               # Logitech devices
+function AnalyzeUSBDevices {
+    Write-Host " [-] Performing comprehensive USB device analysis..." -ForegroundColor Green
+    
+    $usbDevices = Get-WmiObject Win32_USBHub | Select-Object DeviceID, PNPDeviceID, Description
+    $usbHistory = Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Enum\USBSTOR\*\*" | Select-Object FriendlyName, DeviceDesc, Mfg
+    $usbStorage = Get-WmiObject Win32_DiskDrive | Where-Object {$_.InterfaceType -eq "USB"}
+    $usbControllers = Get-WmiObject Win32_USBController
+    $usbSetupClasses = Get-WmiObject Win32_PnPSignedDriver | Where-Object {$_.DeviceClass -eq "USB"}
+
+    Add-Content -Path $outputFile -Value "`n=== USB Device Analysis ==="
+
+    if ($usbDevices) {
+        Add-Content -Path $outputFile -Value "`nCurrent USB Devices:"
+        $usbDevices | ForEach-Object {
+            Add-Content -Path $outputFile -Value "Device ID: $($_.DeviceID) | PNP Device ID: $($_.PNPDeviceID) | Description: $($_.Description)"
+        }
     }
-    
-    $dmaDevices = Get-WmiObject -Query "SELECT * FROM Win32_PnPEntity WHERE (PNPClass = 'HDC' OR PNPClass = 'SCSIADAPTER')"
-    
-    if ($suspiciousDevices -or $dmaDevices) {
-        Add-Content -Path $outputFile -Value "`nSuspicious USB Devices and Potential DMA Devices:"
-        $suspiciousDevices | ForEach-Object {
-            Add-Content -Path $outputFile -Value "USB Device: $($_.Dependent)"
+
+    if ($usbHistory) {
+        Add-Content -Path $outputFile -Value "`nUSB Device History:"
+        $usbHistory | ForEach-Object {
+            Add-Content -Path $outputFile -Value "Friendly Name: $($_.FriendlyName) | Device Desc: $($_.DeviceDesc) | Manufacturer: $($_.Mfg)"
         }
-        $dmaDevices | ForEach-Object {
-            Add-Content -Path $outputFile -Value "Potential DMA Device: $($_.Name)"
+    }
+
+    if ($usbStorage) {
+        Add-Content -Path $outputFile -Value "`nUSB Storage Devices:"
+        $usbStorage | ForEach-Object {
+            Add-Content -Path $outputFile -Value "Model: $($_.Model) | Serial: $($_.SerialNumber) | Size: $([math]::Round($_.Size / 1GB, 2)) GB"
         }
+    }
+
+    if ($usbControllers) {
+        Add-Content -Path $outputFile -Value "`nUSB Controllers:"
+        $usbControllers | ForEach-Object {
+            Add-Content -Path $outputFile -Value "Name: $($_.Name) | Manufacturer: $($_.Manufacturer) | Status: $($_.Status)"
+        }
+    }
+
+    if ($usbSetupClasses) {
+        Add-Content -Path $outputFile -Value "`nUSB Device Setup Classes:"
+        $usbSetupClasses | ForEach-Object {
+            Add-Content -Path $outputFile -Value "Device Name: $($_.DeviceName) | Driver Name: $($_.DriverName) | Driver Version: $($_.DriverVersion)"
+        }
+    }
+
+    if (-not ($usbDevices -or $usbHistory -or $usbStorage -or $usbControllers -or $usbSetupClasses)) {
+        Add-Content -Path $outputFile -Value "`nNo USB devices or related information detected."
     }
 }
 
@@ -419,7 +447,7 @@ function Main {
     Log-PrefetchFiles
     Check-NetworkConnections
     Check-Sandboxing
-    Analyze-USBDevices
+    AnalyzeUSBDevices
     Expanded-RegistryScan
     Check-JournalDeletion
 
