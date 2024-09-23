@@ -451,71 +451,35 @@ function Main {
 
 
 $havocArt = @"
- _   _                                 . .  ,  ,
-| | | |                               |` \/ \/ \,',
-| |_| | __ ___   _____   ___          ;          ` \/\,.
-|  _  |/ _` \ \ / / _ \ / __|        :               ` \,/
-| | | | (_| |\ V / (_) | (__         |                  /
-\_| |_/\__,_| \_/ \___/ \___|        ;                 :
-                                    :                  ;
-                                    |      ,---.      /
-                                   :     ,'     `,-._ \
-                                   ;    (   o    \   `'
-                                 _:      .      ,'  o ;
-                                /,.`      `.__,'`-.__,
-                                \_  _               \
-                               ,'  / `,          `.,'
-                         ___,'`-._ \_/ `,._        ;
-                      __;_,'      `-.`-'./ `--.____)
-                   ,-'           _,--\^-'
-                 ,:_____      ,-'     \
-                (,'     `--.  \;-._    ;
-                :    Y      `-/    `,  :
-                :    :       :     /_;'
-                :    :       |    :
-                 \    \      :    :
-                  `-._ `-.__, \    `.
-                     \   \  `. \     `.
-                   ,-;    \---)_\ ,','/
-                   \_ `---'--'" ,'^-;'
-                   (_`     ---'" ,-')
-                   / `--.__,. ,-'    \
-          -hrr-    )-.__,-- ||___,--' `-.
-                  /._______,|__________,'\
-                  `--.____,'|_________,-'
+                     ........                     
+                .::...........:::.                
+               :: .::---:.       ::               
+              -: :*======::     . ::              
+            .-. .*======-:.     :. .-.            
+           .- .-::...::..            -.           
+           -. ==::---::::..       .: .-           
+           .-  .::. .::::..      ..  -.           
+            -  :=-  --:          :: .-            
+           .-  .-. -=: ..        ..  -.           
+           -. -=: .:.:==-.        :. .-           
+           -.  +*+==++-:..        :  .-           
+        .::.  . :===-.::::::          .::.        
+      ::. .:-.--  --.=... ..:      . ..  .::      
+      ::  +++- ..   := .::. :.        .:  ::      
+  :...:-. :=.        =.... .:         .. .-:...:  
+  -:                  ::....                  :-  
+   -.  :=. :=.  :==  -=.  -- .====-  -====:  .-   
+    -  -#- =@:  +@@= :@+ -@- +@-:%% :@+:+@-  -    
+    -. :@+:+@: .%++%. +%:**  =@. +% :@-     .-    
+    -. :@+=*@: +%++@+ :@%@:  +@: *% :@= .-. .-    
+    -. :@- -%: *=  =*. =*+   -*++*+ .%*+*@- .-    
+    -. :+: .:  .    ..  ..   ......  .:-=+: .-    
+    -.  .                                .  .-    
+    -.    ..::::::::::::::::::::::::::..    .-    
+    -::::..                            ..::::-    
+    ..                                      ..   
 "@
 
 Write-Host $havocArt -ForegroundColor Red
 $discordName = Read-Host "Please enter your Discord name"
 Main
-
-
-#function Custom-Obfuscate {
-#    param([string]$script)
-#    $key = [byte[]](1..32)
-#    $rng = New-Object System.Security.Cryptography.RNGCryptoServiceProvider
-#    $rng.GetBytes($key)
-#    
-#    $aes = New-Object System.Security.Cryptography.AesManaged
-#    $aes.Mode = [System.Security.Cryptography.CipherMode]::CBC
-#    $aes.Padding = [System.Security.Cryptography.PaddingMode]::PKCS7
-#    $aes.Key = $key
-#    $aes.GenerateIV()
-#
-#    #$scriptToObfuscate = $script -replace '(?s)function Custom-Obfuscate.*?}', ''
-#
-#    $msEncrypt = New-Object System.IO.MemoryStream
-#    $csEncrypt = New-Object System.Security.Cryptography.CryptoStream($msEncrypt, $aes.CreateEncryptor(), [System.Security.Cryptography.CryptoStreamMode]::Write)
-#    $swEncrypt = New-Object System.IO.StreamWriter($csEncrypt)
-#    $swEncrypt.Write($script)
-#    $swEncrypt.Close()
-#    $csEncrypt.Close()
-#    
-#    $encrypted = $msEncrypt.ToArray()
-#    $result = @($key, $aes.IV, $encrypted) | ForEach-Object { [Convert]::ToBase64String($_) }
-#    return "powershell -c `"$($result -join ',')`""
-#}
-#
-#$scriptContent = Get-Content -Path "c:\Users\kyle1\Desktop\Havoc\Havoc.ps1" -Raw
-#$obfuscatedScript = Custom-Obfuscate -script $scriptContent
-#$obfuscatedScript | Out-File -FilePath "c:\Users\kyle1\Desktop\ObfuscatedHavoc.txt"
