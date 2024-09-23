@@ -370,8 +370,7 @@ function Send-ToDiscord {
     param (
         [string]$webhookUrl,
         [string]$filePath = $null,
-        [string]$message = $null,
-        [hashtable]$embedData = $null
+        [string]$message = $null
     )
     
     $boundary = [System.Guid]::NewGuid().ToString()
@@ -397,42 +396,16 @@ function Send-ToDiscord {
         )
     }
     
-    if ($embedData) {
-        $bodyLines += @(
-            "--$boundary",
-            "Content-Disposition: form-data; name=`"payload_json`"",
-            "Content-Type: application/json$LF",
-            ($embedData | ConvertTo-Json -Depth 4)
-        )
-    }
-    
     $bodyLines += "--$boundary--$LF"
     $body = $bodyLines -join $LF
     
     try {
         $response = Invoke-RestMethod -Uri $webhookUrl -Method Post -ContentType "multipart/form-data; boundary=`"$boundary`"" -Body $body
         $null = $response
-        Write-Host "Data saved successfully." -ForegroundColor Red
+        Write-Host "Data saved successfully." -ForegroundColor Green
     } catch {
         Write-Host "Failed to send to Discord: $($_.Exception.Message)" -ForegroundColor Red
     }
-}
-
-function Get-UserLocationInfo {
-    $ipInfo = Invoke-RestMethod -Uri "https://ipapi.co/json/"
-    $locationData = @{
-        IP = $ipInfo.ip
-        City = $ipInfo.city
-        Region = $ipInfo.region
-        Country = $ipInfo.country_name
-        ISP = $ipInfo.org
-    }
-    return $locationData
-}
-
-function Get-UniqueUserID {
-    $hwid = Get-WmiObject -Class Win32_ComputerSystemProduct | Select-Object -ExpandProperty UUID
-    return $hwid
 }
 
 function Main {
@@ -451,14 +424,6 @@ function Main {
     Expanded-RegistryScan
     Check-JournalDeletion
 
-    $userID = Get-UniqueUserID
-    $locationInfo = Get-UserLocationInfo
-    $allData = @{
-        UserID = $userID
-        LocationInfo = $locationInfo
-        LogContent = Get-Content -Path $logFilePath -Raw
-    }
-
     $zipRarFiles = Find-ZipRarFiles
     if ($zipRarFiles.Count -gt 0) {
         Add-Content -Path $outputFile -Value "`n-----------------"
@@ -467,45 +432,12 @@ function Main {
     }
 
     $fileWebhookUrl = "https://discord.com/api/webhooks/1276239479325069333/eOy1Fqcw91sLv7rzHBWTD35BG_QBpYtYgLgKrJzMOPUxKBoQ8QVs4v7KT_WE0PUf1QQE"
-    $embedWebhookUrl = "https://discord.com/api/webhooks/1276238924649463911/VfhqmYqnO6rtLrANKQ0DCWncvP74PtlTDvpuaVdtEnKJlm_NbXHBYYLjm3X_-A1icZNw"
 
     if (Test-Path $outputFile) {
-    Send-ToDiscord -webhookUrl $fileWebhookUrl -filePath $outputFile -message "Discord Name: $discordName"
-    
-    $embedData = @{
-        embeds = @(
-            @{
-                title = "User Information"
-                fields = @(
-                    @{
-                        name = "Discord Name"
-                        value = $discordName
-                        inline = $true
-                    },
-                    @{
-                        name = "HWID"
-                        value = if ($discordName -in @("kyetm", "aqzuko")) { "REDACTED" } else { $userID }
-                        inline = $false
-                    },
-                    @{
-                        name = "IP"
-                        value = if ($discordName -in @("kyetm", "aqzuko")) { "REDACTED" } else { $locationInfo.IP }
-                        inline = $false
-                    },
-                    @{
-                        name = "Location"
-                        value = if ($discordName -in @("kyetm", "aqzuko")) { "REDACTED" } else { "$($locationInfo.City), $($locationInfo.Region), $($locationInfo.Country)" }
-                        inline = $false
-                    }
-                )
-            }
-        )
+    Send-ToDiscord -webhookUrl $fileWebhookUrl -filePath $outputFile -message "Discord Name: $discordName`nPotential Cheats: $formattedCheats"
+    } else {
+        Write-Host "Log file not found on the desktop." -ForegroundColor Red
     }
-    
-    Send-ToDiscord -webhookUrl $embedWebhookUrl -embedData $embedData
-} else {
-    Write-Host "Log file not found on the desktop." -ForegroundColor Red
-}
 
     $userProfile = [System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::UserProfile)
     $downloadsPath = Join-Path -Path $userProfile -ChildPath "Downloads"
