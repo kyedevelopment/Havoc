@@ -1,0 +1,22 @@
+name: Serve Script with Auth
+
+on:
+  repository_dispatch:
+    types: [serve_script]
+
+jobs:
+  serve_script:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check Authorization
+        env:
+          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+        run: |
+          if [ "${{ github.event.client_payload.token }}" != "$AUTH_TOKEN" ]; then
+            echo "Unauthorized"
+            exit 1
+          fi
+      - name: Serve Script
+        run: |
+          cat Havoc.ps1
