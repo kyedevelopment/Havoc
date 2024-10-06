@@ -3,58 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Havoc Cheat Finder</title>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet"> 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: black;
-            background-image: url('image.png'); /* Starry background */
-            background-size: cover;
-            background-position: center;
-            color: white;
-            font-family: 'Oswald', sans-serif;
-        }
-
-        .container {
-            text-align: center;
-            position: relative;
-            width: 100%;
-        }
-
-        .logo {
-            display: block;
-            margin: 0 auto;
-            max-width: 600px; /* Adjusted to 3x bigger */
-        }
-
-        .text-left, .text-right {
-            font-size: 6rem; /* Slightly smaller for balance */
-            font-weight: bold;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .text-left {
-            left: 20%; /* Closer to the logo */
-        }
-
-        .text-right {
-            right: 20%; /* Closer to the logo */
-        }
-    </style>
+    <title>Havoc</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <div class="text-left">Cheat</div>
-        <img src="crop-removebg-preview9696.png" alt="Havoc Logo" class="logo">
-        <div class="text-right">Finder</div>
-    </div>
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="logo.png" alt="Logo" class="logo">
+            </div>
+            <ul>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Docs</a></li>
+            </ul>
+            <div class="social-links">
+                <a href="https://github.com/kyedevelopment" target="_blank">GitHub</a>
+                <a href="https://discord.gg/tDvvtUVaN3" target="_blank">Discord</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <video autoplay loop muted class="background-video">
+            <source src="background_video.mp4" type="video/mp4">
+        </video>
+        <div class="overlay-content">
+            <img src="logo.png" alt="Logo" class="center-logo">
+            <h1>Welcome to Havoc</h1>
+            <p>Cutting-edge resources to counter cheaters</p>
+        </div>
+    </section>
 </body>
 </html>
