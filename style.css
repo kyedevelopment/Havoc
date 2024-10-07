@@ -4,7 +4,7 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #121212;
+    background-color: #0d0d0d; /* Darker background */
     color: #ffffff;
     margin: 0;
     padding: 0;
@@ -13,22 +13,22 @@ body {
 }
 
 header {
-    background-color: #1f1f1f;
-    padding: 20px 50px;
+    background-color: #0b0b0b; /* More black than gray */
+    padding: 10px 50px; /* Thinner top bar */
     text-align: center;
 }
 
 .social-icons {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15px; /* Adjust button spacing */
 }
 
 .social-icons a.button {
     color: #ffffff;
     text-decoration: none;
     font-weight: bold;
-    padding: 10px 20px;
+    padding: 8px 16px; /* Adjust button size */
     background-color: #ff0000;
     border-radius: 5px;
     transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
@@ -66,7 +66,7 @@ header {
 }
 
 .hero-logo {
-    max-width: 50%;
+    max-width: 70%; /* Make the logo bigger */
     height: auto;
     object-fit: contain;
 }
@@ -76,10 +76,10 @@ header {
     text-align: center;
 }
 
-.content-section h2 {
+.section-heading {
     font-size: 2.5rem;
     margin-bottom: 20px;
-    color: #ff9800;
+    color: #ff0000; /* Red headings */
 }
 
 .content-section p {
@@ -90,7 +90,7 @@ header {
 }
 
 footer {
-    background-color: #1f1f1f;
+    background-color: #0b0b0b; /* More black */
     padding: 20px;
     text-align: center;
     color: #888888;
@@ -124,14 +124,14 @@ button:hover, .cta-button:hover {
     }
 
     .hero-logo {
-        max-width: 70%;
+        max-width: 80%; /* Increase logo size for smaller screens */
     }
 
     .content-section {
         padding: 40px 20px;
     }
 
-    .content-section h2 {
+    .section-heading {
         font-size: 2rem;
     }
 }
@@ -142,10 +142,10 @@ button:hover, .cta-button:hover {
     }
 
     .hero-logo {
-        max-width: 80%;
+        max-width: 90%; /* Further increase logo size for mobile screens */
     }
 
-    .content-section h2 {
+    .section-heading {
         font-size: 1.8rem;
     }
 
