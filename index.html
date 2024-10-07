@@ -18,7 +18,7 @@
             <div class="social-icons">
                 <a href="https://github.com/kyedevelopment/Havoc" class="button" target="_blank"><i class="fab fa-github"></i> GitHub</a>
                 <a href="https://discord.gg/tDvvtUVaN3" class="button" target="_blank"><i class="fab fa-discord"></i> Discord</a>
-                <a href="https://twitter.com" class="button" target="_blank"><i class="fab fa-x-twitter"></i> X</a>
+                <a href="https://twitter.com" class="button" target="_blank"><i class="fas fa-x"></i> X</a>
             </div>
         </nav>
     </header>
@@ -27,10 +27,13 @@
         <div class="hero-content">
             <img src="logo2.png" alt="Havoc Logo" class="hero-logo" id="logo">
         </div>
-        <video autoplay muted loop class="background-video">
-            <source src="background-video.mp4" type="video/mp4">
-            Your browser does not support HTML5 video.
-        </video>
+        <div class="video-background">
+            <iframe src="https://www.youtube.com/embed/X_emBghRfRA?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&autohide=1&playlist=X_emBghRfRA" 
+                    frameborder="0" 
+                    allow="autoplay; fullscreen" 
+                    allowfullscreen>
+            </iframe>
+        </div>
     </section>
 
     <section class="content-section">
@@ -48,12 +51,14 @@
     </footer>
 
     <script>
-        // JavaScript to make the logo move with the scroll
+        // JavaScript to make the logo move with the scroll (Commented Out)
+        /*
         window.addEventListener('scroll', function () {
             const logo = document.getElementById('logo');
             const scrollPosition = window.scrollY;
             logo.style.transform = `translateY(${scrollPosition * 0.3}px)`; // Adjust multiplier for effect intensity
         });
+        */
     </script>
 </body>
 
