@@ -27,29 +27,7 @@ nav {
 }
 
 .logo img {
-    width: 150px;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 25px;
-    margin: 0;
-}
-
-.nav-links li {
-    margin: 0;
-}
-
-.nav-links li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease-in-out;
-}
-
-.nav-links li a:hover {
-    color: #ff9800;
+    width: 120px;
 }
 
 .social-icons {
@@ -57,19 +35,42 @@ nav {
     gap: 15px;
 }
 
-.social-icons a {
+.social-icons a.button {
     color: #ffffff;
-    font-size: 1.5rem;
-    transition: color 0.3s ease-in-out;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    background-color: #ff9800;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
-.social-icons a:hover {
-    color: #ff9800;
+.social-icons a.button:hover {
+    background-color: #e68a00;
+    color: #121212;
+}
+
+.services-button {
+    margin-left: auto;
+}
+
+.services-button a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: #ff9800;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.services-button a:hover {
+    background-color: #e68a00;
 }
 
 .hero {
     position: relative;
-    height: 80vh;
+    height: 100vh;
     overflow: hidden;
 }
 
@@ -152,9 +153,8 @@ button:hover, .cta-button:hover {
         flex-direction: column;
     }
 
-    .nav-links {
-        flex-direction: column;
-        gap: 15px;
+    .social-icons {
+        margin-bottom: 15px;
     }
 
     .hero h1 {
