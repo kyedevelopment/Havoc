@@ -58,6 +58,7 @@ header {
 .hero-content {
     height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -66,9 +67,18 @@ header {
 }
 
 .hero-logo {
-    max-width: 70%; /* Make the logo bigger */
+    max-width: 50%;
     height: auto;
     object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.outline-image {
+    max-width: 80%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8)); /* Adding a subtle glow effect */
+    margin-top: 20px;
 }
 
 .content-section {
@@ -124,7 +134,11 @@ button:hover, .cta-button:hover {
     }
 
     .hero-logo {
-        max-width: 80%; /* Increase logo size for smaller screens */
+        max-width: 70%; /* Increase logo size for smaller screens */
+    }
+
+    .outline-image {
+        max-width: 90%; /* Adjust outline image size for smaller screens */
     }
 
     .content-section {
@@ -142,7 +156,7 @@ button:hover, .cta-button:hover {
     }
 
     .hero-logo {
-        max-width: 90%; /* Further increase logo size for mobile screens */
+        max-width: 80%; /* Further increase logo size for mobile screens */
     }
 
     .section-heading {
