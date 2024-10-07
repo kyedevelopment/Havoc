@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Havoc™</title>
+    <title>X</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -16,9 +16,10 @@
     <header>
         <nav>
             <div class="social-icons">
-                <a href="https://github.com/kyedevelopment/Havoc" class="button" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                <!-- Commented Out GitHub Link -->
+                <!-- <a href="https://github.com/kyedevelopment/Havoc" class="button" target="_blank"><i class="fab fa-github"></i> GitHub</a> -->
                 <a href="https://discord.gg/tDvvtUVaN3" class="button" target="_blank"><i class="fab fa-discord"></i> Discord</a>
-                <a href="https://twitter.com" class="button" target="_blank"><i class="fas fa-x"></i> X</a>
+                <a href="https://twitter.com" class="button" target="_blank"><i class="fab fa-twitter"></i> X</a>
             </div>
         </nav>
     </header>
@@ -27,13 +28,10 @@
         <div class="hero-content">
             <img src="logo2.png" alt="Havoc Logo" class="hero-logo" id="logo">
         </div>
-        <div class="video-background">
-            <iframe src="https://www.youtube.com/embed/X_emBghRfRA?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&autohide=1&playlist=X_emBghRfRA" 
-                    frameborder="0" 
-                    allow="autoplay; fullscreen" 
-                    allowfullscreen>
-            </iframe>
-        </div>
+        <video autoplay muted loop class="background-video">
+            <source src="background-video.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
     </section>
 
     <section class="content-section">
