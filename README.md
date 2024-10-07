@@ -1,1 +1,1 @@
-wow me and kye are so cool
+wow verity and kye are so cool
